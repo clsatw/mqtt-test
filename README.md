@@ -24,3 +24,18 @@ $ ionic cordova run ios
 
 Substitute ios for android if not on a Mac.
 
+// support platforms: android only
+cordova plugin add https://github.com/DeshanKTD/cordova-plugin-lightsensor
+
+// android and ios
+$ ionic cordova plugin add cordova-plugin-gyroscope
+$ npm install --save @ionic-native/gyroscope
+
+This plugin provides access to the device’s accelerometer. The accelerometer is a motion sensor that detects the change (delta) in movement relative to the current device orientation, in three dimensions along the x, y, and z axis.
+cordova plugin add cordova-plugin-device-motion
+
+cordova plugin add https://github.com/DeshanKTD/cordova-plugin-lightsensor
+
+npm i -S @types/firebase
+
+

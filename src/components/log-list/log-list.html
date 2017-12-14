@@ -1,0 +1,19 @@
+<!-- Generated template for the LogListComponent component -->
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Topic</th>
+        <th>Message</th>
+        <th>TimeStamp</th>     
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let log of logs$ | async ; let i = index' (click)='delete(i)'>
+        <td>{{log.topic}}</td>
+        <td>{{log.message}}</td>
+        <td>{{log.timeStamp}} </td>    
+      </tr>
+    </tbody>
+  </table>
+</div>

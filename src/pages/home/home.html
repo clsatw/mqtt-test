@@ -1,14 +1,15 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      My ehome Application
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  Power Control
+  <h1>Home Page</h1>  
+  <button ion-button (click)='navigateToDht11Page()'>Navigate To Dht11 Page</button>
+  <button ion-button (click)='navigateToControlPage()'>Navigate To Control Page</button>
+  <button ion-button block color='energy' (click)='navigateToLogPage()'>Logs</button>
 </ion-content>

@@ -38,8 +38,13 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  energy:     #f2b632,
+  lightprimary: #B5B5B5,
+
 );
+
+$toolbar-background: color($colors, lightprimary);
 
 
 // App iOS Variables

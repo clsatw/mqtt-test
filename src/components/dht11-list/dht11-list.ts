@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFireList } from 'angularfire2/database';
-import { Chart } from 'angular-highcharts';
+// import { Chart } from 'angular-highcharts';
 import * as HighCharts from 'highcharts';
 // import {FirebaseProvider} from '/providers/firebase/firebase.ts';
 import { Observable } from 'rxjs/Observable';
@@ -19,73 +19,89 @@ import { DhtLog } from '../../app/shared/dhtlog.model';
 })
 export class Dht11ListComponent {
   dhtLogs$: Observable<DhtLog[]>;
+  dhtLogs: any;
   dhtLogList: AngularFireList<DhtLog>;
-  chart: Chart;
-
+  // chart: Chart;  
   // overide options type with <any> 
-
+  logsH: Array<number>;
+  logsT: Array<number>;
+  logsTimeStamp: Array<Date>;
+  /*
+  chart = new Chart({
+    chart: {
+      type: 'line'
+    },
+    title: {
+      text: 'Temperature/Humidity'
+    },
+    credits: {
+      enabled: false
+    },
+    xAxis: {
+      categories: ['Apples', 'Bananas', 'Oranges']
+    },
+    yAxis: {
+      title: {
+        text: 'Fruit eaten'
+      }
+    },
+    series: [{
+      name: 'temperature',
+      data: []
+    }, {
+      name: 'humidity',
+      data: []
+    }]
+  });
+  */
   constructor(private dhtLogSvc: FirebaseProvider) {
     console.log('ionViewDidLoad dht11-Log component');
-    this.dhtLogs$ = this.dhtLogSvc.getDhtData();
-    this.chart = new Chart({
+
+    this.dhtLogSvc.getDhtData()
+      // .do(logs=>console.log(logs))           
+      .subscribe(logs => {
+        this.dhtLogs = logs;
+        this.logsH = logs.map(log => Number(log.h));
+        this.logsT = logs.map(log => Number(log.t));
+        this.logsTimeStamp = logs.map(log => log.timeStamp);
+      })
+    // console.dir(this.logsH);
+
+    // this.chart.addPoint()
+  }
+  displayChart() {
+    HighCharts.setOptions({ global: { useUTC: false } });
+    HighCharts.chart('container', {           
       chart: {
-        type: 'line'
+        type: 'spline'
       },
       title: {
         text: 'Temperature/Humidity'
-      },
-      credits: {
-        enabled: false
-      },
-      xAxis: {
-        categories: ['Apples', 'Bananas', 'Oranges']
-      },
-      yAxis: {
+      },     
+      xAxis: { 
+        type: 'datetime',       
+        categories: this.logsTimeStamp
+      },      
+      yAxis: {        
         title: {
-          text: 'Fruit eaten'
+          text: 'Temperature/Humidity'
         }
-      },
+      },      
       series: [{
         name: 'temperature',
-        data: [3,6,9]
+        data: this.logsT
       }, {
         name: 'humidity',
-        data: [5, 7, 3]
+        data: this.logsH
       }]
     });
+    //charts.series[0].setData(this.logsT);
+    //charts.series[1].setData(this.logsH);
+    /*  
+    for( let log of this.logsT){     
+      console.log(log);
+      this.chart.addPoint(Number(log));
+    }
+    */
   }
-
-  ngOnInit() {
-    console.log("onInit fired");
-    /* for some reason these code cannot be moved into constructor
-    let myChart = HighCharts.chart('container', {
-      chart: {
-        type: 'line'
-      },
-      title: {
-        text: 'Temperature/Humidity'
-      },
-      credits: {
-        enabled: false
-      },
-      xAxis: {
-        categories: ['Apples', 'Bananas', 'Oranges']
-      },
-      yAxis: {
-        title: {
-          text: 'Fruit eaten'
-        }
-      },
-      series: [{
-        name: 'temperature',
-        data: this.dhtLogs$.map(res=>res.reduce)
-            }, {
-        name: 'humidity',
-        data: [5, 7, 3]
-      }]
-    });
-  }
-  */
-  }
-
 }

@@ -49,7 +49,8 @@ export class MqttProvider {
           this.t = message.toString();
           break;
         case '/clsa27f/h':
-          log.h = message.toString();
+          this.h = message.toString();
+          log.h = this.h;
           log.t = this.t;
           // if (log.t !== undefined && log.h !== undefined) {
             console.log('start writing...\n');

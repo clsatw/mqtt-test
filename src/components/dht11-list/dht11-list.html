@@ -5,27 +5,27 @@
     <ion-item>{{dhtLog.t}}</ion-item><ion-item>{{dhtLog.h}}</ion-item>
   </ion-item>
 </ion-list>
-<div id='container' style='display:block;'></div>
--->
 <div [chart]='chart'></div>
+-->
+<button ion-button large color='primary' (click)="displayChart()">display cahrt</button>
 
+<div id='container' style='display:block;'></div>
 <div>
   <table>
     <thead>
       <tr>
         <th>Temperature</th>
         <th>Humidity</th>
-        <th>TimeStamp</th>        
+        <th>TimeStamp</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor='let dhtLog of dhtLogs$ | async ; let i = index'>
+      <!-- <tr *ngFor='let dhtLog of dhtLogs$ | async ; let i = index'> -->
+      <tr *ngFor='let dhtLog of dhtLogs;'>
         <td>{{dhtLog.t}}</td>
         <td>{{dhtLog.h}}</td>
-        <td>{{dhtLog.timeStamp}} </td>        
+        <td>{{dhtLog.timeStamp}} </td>
       </tr>
     </tbody>
   </table>
 </div>
-
-

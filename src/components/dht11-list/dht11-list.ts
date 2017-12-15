@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFireList } from 'angularfire2/database';
 // import { Chart } from 'angular-highcharts';
 import * as HighCharts from 'highcharts';
+// import * as HighStock from 'highcharts/highstock';
 // import {FirebaseProvider} from '/providers/firebase/firebase.ts';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
@@ -71,22 +72,38 @@ export class Dht11ListComponent {
   }
   displayChart() {
     HighCharts.setOptions({ global: { useUTC: false } });
-    HighCharts.chart('container', {           
+    
+    HighCharts.chart('container', {
       chart: {
-        type: 'spline'
-      },
-      title: {
-        text: 'Temperature/Humidity'
+        type: 'spline',
+        panning: true,
+        events: {
+          load() {
+            /*
+            this.setTitle(null, {
+              text: 'Built chart in ' + (new Date() - start) + 'ms'
+            });
+            */
+            // this.xAxis[0].setExtremes(0, 7)
+          }
+        },
+        zoomType: 'x'
       },     
-      xAxis: { 
-        type: 'datetime',       
+      title: {
+        text: 'Temperature/Humidity',
+        style: {
+          color: '#f45b5b'
+        }
+      },
+      xAxis: {
+        type: 'datetime',
         categories: this.logsTimeStamp
-      },      
-      yAxis: {        
+      },
+      yAxis: {
         title: {
           text: 'Temperature/Humidity'
         }
-      },      
+      },
       series: [{
         name: 'temperature',
         data: this.logsT

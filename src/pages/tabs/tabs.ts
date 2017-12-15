@@ -25,16 +25,15 @@ export class TabsPage {
   tab3Root: any;
   tab4Root: any;
   tab5Root: any;
-  tab6Root: any;
+  // tab6Root: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     // lazy loading
     this.tab1Root = 'HomePage';
     this.tab2Root = 'ControlPage';
-    this.tab3Root = 'Dht11Page';
-    this.tab4Root = 'LogPage';
-    this.tab5Root = 'AboutPage';
-    this.tab6Root = 'ContactPage';
+    this.tab3Root = 'LogPage';
+    this.tab4Root = 'AboutPage';
+    this.tab5Root = 'ContactPage';
     console.log(this.navCtrl.id);
   }
 

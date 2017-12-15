@@ -14,8 +14,7 @@ import { MqttClient } from 'mqtt';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage { 
-
+export class HomePage {
   subscription: Subscription;
   //watch: number;
   client: MqttClient;
@@ -59,15 +58,12 @@ export class HomePage {
 
   ionViewWillLeave() {
   }
-
+/*
   navigateToLogPage() {
     this.navCtrl.push('LogPage');
-  }
-  navigateToDht11Page() {
-    // parm: string for lazy loading
-    this.navCtrl.push('Dht11Page');
-  }
+  } 
   navigateToControlPage() {
     this.navCtrl.push('ControlPage');
   }
+*/
 }

@@ -41,10 +41,10 @@ $colors: (
   dark:       #222,
   energy:     #f2b632,
   lightprimary: #B5B5B5,
-
+  3dry: rgb(54, 143, 146) 
 );
 
-$toolbar-background: color($colors, lightprimary);
+$toolbar-background: color($colors, 3dry);
 
 
 // App iOS Variables

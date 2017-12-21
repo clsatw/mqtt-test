@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChildren, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { Gyroscope, GyroscopeOrientation, GyroscopeOptions } from '@ionic-native/gyroscope';
@@ -28,8 +28,6 @@ import { MqttProvider } from '../../providers/mqtt/mqtt';
   templateUrl: 'control.html',
 })
 export class ControlPage {
-  @ViewChildren('btnCtrl') btnCtrls: ElementRef
-
   msg: string;
   mqttMsg = {
     x: 'n/a',
@@ -40,7 +38,7 @@ export class ControlPage {
     frequency: 1000
   };
 
-  constructor(private el: ElementRef, private mqtt: MqttProvider, private logSvc: FirebaseProvider,
+  constructor(private mqtt: MqttProvider, private logSvc: FirebaseProvider,
     public navCtrl: NavController, public navParams: NavParams,
     private platform: Platform, private gyroscope: Gyroscope,
     private deviceMotion: DeviceMotion) {

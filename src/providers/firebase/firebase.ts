@@ -22,7 +22,8 @@ export class FirebaseProvider {
   // selectedLog = new Log();
   constructor(private firebase: AngularFireDatabase) {
     console.log('Hello FirebaseProvider Provider');
-    this.logList = this.firebase.list<Log>('logs');
+    // logs and dht are db collection.
+    this.logList = this.firebase.list<Log>('/logs');
     this.dhtLogList = this.firebase.list<DhtLog>('/dht');
   }
 

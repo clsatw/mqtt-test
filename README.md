@@ -37,5 +37,7 @@ cordova plugin add cordova-plugin-device-motion
 cordova plugin add https://github.com/DeshanKTD/cordova-plugin-lightsensor
 
 npm i -S @types/firebase
+$ ionic cordova plugin add cordova-sms-plugin
+$ npm install --save @ionic-native/sms
 
 

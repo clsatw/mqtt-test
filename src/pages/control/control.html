@@ -7,7 +7,8 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title><ion-icon name="power"></ion-icon> Control</ion-title>
+    <ion-title>
+      <ion-icon name="power"></ion-icon> Control</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -15,8 +16,12 @@
 <ion-content padding>
   <h1>TV in the living room</h1>
   <ion-item-group>
-  <button ion-button large color='danger' (click)="ctrlGpio('1')">ON</button>
-  <button ion-button large color='secondary' (click)="ctrlGpio('0')">Off</button>
-  </ion-item-group> 
-  
+    <!--
+  <button id='tvOn' ion-button large color='danger' (click)="ctrlGpio('1')">ON</button>
+  <button id='tvOff' ion-button large color='secondary' (click)="ctrlGpio('0')">Off</button>
+    -->
+    <button id='btn0' ion-button large color='danger'>ON</button>
+    <button id='btn1' ion-button large color='secondary'>Off</button>
+  </ion-item-group>
+
 </ion-content>

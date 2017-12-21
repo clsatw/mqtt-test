@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor='let log of logs$ | async ; let i = index' (click)='delete(i)'>
+      <tr *ngFor='let log of (logs$ | async) ; let i = index' (click)='delete(i)'>
         <td>{{log.topic}}</td>
         <td>{{log.message}}</td>
         <td>{{log.timeStamp}} </td>    

@@ -1,11 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChildren, AfterViewInit, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { Gyroscope, GyroscopeOrientation, GyroscopeOptions } from '@ionic-native/gyroscope';
 import { DeviceMotion, DeviceMotionAccelerationData } from '@ionic-native/device-motion';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/throttleTime';
+import 'rxjs/add/operator/distinct';
+import 'rxjs/add/operator/mapTo';
+
+import 'rxjs/add/operator/do';
+import 'rxjs/add/observable/fromEvent';
 
 import { Log } from '../../app/shared/log.model';
 import { MqttProvider } from '../../providers/mqtt/mqtt';
+// import { Element } from '@angular/compiler';
 
 /**
  * Generated class for the ControlPage page.
@@ -20,6 +28,8 @@ import { MqttProvider } from '../../providers/mqtt/mqtt';
   templateUrl: 'control.html',
 })
 export class ControlPage {
+  @ViewChildren('btnCtrl') btnCtrls: ElementRef
+
   msg: string;
   mqttMsg = {
     x: 'n/a',
@@ -30,14 +40,32 @@ export class ControlPage {
     frequency: 1000
   };
 
-  constructor(private mqtt: MqttProvider, private logSvc: FirebaseProvider,
+  constructor(private el: ElementRef, private mqtt: MqttProvider, private logSvc: FirebaseProvider,
     public navCtrl: NavController, public navParams: NavParams,
     private platform: Platform, private gyroscope: Gyroscope,
     private deviceMotion: DeviceMotion) {
   }
 
-  ionViewDidLoad() {
+  ngOnInit() { 
+    console.log('oninit');
     console.log('ionViewDidLoad ControlPage');
+    let btn = document.querySelector('#btn0');
+    const btnTvOn$ = Observable.fromEvent(btn, 'click').mapTo('1');
+    btn = document.querySelector('#btn1');
+    const btnTvOff$ = Observable.fromEvent(btn, 'click').mapTo('0');
+    
+    // const btnTvOff$ = Observable.fromEvent(this.btnCtrls[1].nativeElement, 'click').mapTo('0');
+    Observable.merge(btnTvOn$, btnTvOff$)    
+      .throttleTime(1000)
+      .distinctUntilChanged()
+      .do(e=>console.log(e))
+      .subscribe(e => {
+        this.ctrlGpio(e); 
+      })
+  }
+
+  ionViewDidLoad() {   
+
     if (this.mqtt.client.connected) {
       console.log('MQTT Connected');
       this.mqtt.sub('clsa/27f/x');
@@ -68,7 +96,7 @@ export class ControlPage {
       // client.end()
     });
     */
-    
+
     if (this.platform.is('cordova')) {
       this.gyroscope.getCurrent(this.options)
         .then((orientation: GyroscopeOrientation) => {
@@ -107,13 +135,14 @@ export class ControlPage {
     this.mqtt.unsub('clsa/27f/IT');
   }
   // may be it should be named by <device>@<location>, eg., tv@livingroom
+  // msg: '1' or '0'
   ctrlGpio(msg: string) {
     let log = new Log();
     console.log('timestamp', log.timeStamp);
 
     this.mqtt.client.publish('clsa/27f', msg);
     log.topic = 'clsa/27f';
-    log.message = msg;    
+    log.message = msg;
     this.logSvc.addLog(log);
   }
 }

@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-// import { Http } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import * as mqtt from 'mqtt';
+import 'rxjs/add/operator/throttleTime';
+import 'rxjs/add/operator/distinct';
 
 import { DhtLog } from '../../app/shared/dhtlog.model';
+import { SmsProvider } from '../../providers/sms/sms';
 // import { Log } from '../../app/shared/log.model';
 /*
   Generated class for the MqttProvider provider.
@@ -17,8 +20,8 @@ export class MqttProvider {
   client: mqtt.MqttClient;
   t: string;
   h: string;
-  constructor(private logSvc: FirebaseProvider) {    
-    
+  constructor(private sms: SmsProvider, private logSvc: FirebaseProvider) {
+
   }
 
   connect2Broker(): mqtt.Client {
@@ -32,6 +35,15 @@ export class MqttProvider {
   }
 
   init() {
+    const subject = new Subject<boolean>();
+    const reedSwitch$ = subject.asObservable();
+    reedSwitch$
+      .throttleTime(3000)
+      // .distinctUntilChanged()
+      .subscribe(res => {
+        this.sms.sendTextTextMsg(0922719061, 'Intruder!');
+      })
+
     console.log('connecting to mqtt broker...');
     this.client = this.connect2Broker();
 
@@ -45,6 +57,11 @@ export class MqttProvider {
       console.log(`Msg: ${message}, Topic: ${topic}`);
 
       switch (topic) {
+        // door opened
+        case '/clsa/door1':
+          subject.next(true);
+          // this.logSvc.addReedSwitchLog(log);
+          break;
         case '/clsa27f/t':
           this.t = message.toString();
           break;
@@ -53,10 +70,10 @@ export class MqttProvider {
           log.h = this.h;
           log.t = this.t;
           // if (log.t !== undefined && log.h !== undefined) {
-            console.log('start writing...\n');
-            this.logSvc.addDhtLog(log);
-            //dbCtrl.writeDhtData(th);
-            // client.end()
+          console.log('start writing...\n');
+          this.logSvc.addDhtLog(log);
+          //dbCtrl.writeDhtData(th);
+          // client.end()
           // };
           break;
       }

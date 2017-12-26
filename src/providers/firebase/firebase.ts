@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Log } from '../../app/shared/log.model';
 import { DhtLog } from '../../app/shared/dhtlog.model';
+import { ReedSwLog } from '../../app/shared/reedsw.model';
 
 //import 'rxjs/add/operator/map';
 
@@ -19,12 +20,15 @@ export class FirebaseProvider {
   // note that we have $key property in Log class, so cannot use AngularFireList<Log>
   logList: AngularFireList<any>;
   dhtLogList: AngularFireList<any>;
+  reedSwLogList: AngularFireList<any>;
+
   // selectedLog = new Log();
   constructor(private firebase: AngularFireDatabase) {
     console.log('Hello FirebaseProvider Provider');
     // logs and dht are db collection.
     this.logList = this.firebase.list<Log>('/logs');
     this.dhtLogList = this.firebase.list<DhtLog>('/dht');
+    this.reedSwLogList = this.firebase.list<ReedSwLog>('/reedSwtich');
   }
 
   getData(): Observable<Log[]> {
@@ -83,4 +87,18 @@ export class FirebaseProvider {
   deleteDhtLog(key: string) {
     //this.DhtlogList.remove(key);
   }
+
+  addReedSwLog(log: ReedSwLog) {
+    console.log('add a log', log.timeStamp);
+    this.reedSwLogList.push({
+      doorNumber: log.doorNumber,
+      timeStamp: new Date().toLocaleString(),     
+    });
+  }
+  getReedSwData(): Observable<ReedSwLog[]> {
+    console.log('Get ReedSwLogs');
+    return this.reedSwLogList.valueChanges()
+      //.do(res=>console.log(res));    
+  }
+
 }

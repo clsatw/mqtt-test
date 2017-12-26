@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-// import { ControlPage } from '../control/control';
-// import { Dht11Page } from '../dht11/dht11';
-// import { LogPage } from '../log/log';
-// import { ContactPage } from '../contact/contact';
-// import { AboutPage } from '../about/about';
-// import { HomePage } from '../home/home';
 
 /**
  * Generated class for the TabsPage page.
@@ -28,7 +22,7 @@ export class TabsPage {
   // tab6Root: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // lazy loading
+    // lazy loading, no need to import classes below:
     this.tab1Root = 'HomePage';
     this.tab2Root = 'ControlPage';
     this.tab3Root = 'LogPage';

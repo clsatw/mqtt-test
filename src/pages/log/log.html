@@ -17,13 +17,17 @@
       <ion-segment-button value="control">
         Living room TV
       </ion-segment-button>
+      <ion-segment-button value="reedSw">
+        Reed Switch
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <div [ngSwitch]="log">
-    <log-list *ngSwitchCase="'control'"></log-list>  
+    <log-list *ngSwitchCase="'control'"></log-list>
     <dht11-list *ngSwitchCase="'dht'"></dht11-list>
+    <reedSw-list *ngSwitchCase="'reedSw'"></reedSw-list>
   </div>
 </ion-content>

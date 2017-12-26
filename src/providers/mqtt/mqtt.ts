@@ -7,7 +7,8 @@ import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/operator/distinct';
 
 import { DhtLog } from '../../app/shared/dhtlog.model';
-import { SmsProvider } from '../../providers/sms/sms';
+import { SmsProvider } from '../sms/sms';
+import { ReedSwLog } from '../../app/shared/reedsw.model';
 // import { Log } from '../../app/shared/log.model';
 /*
   Generated class for the MqttProvider provider.
@@ -20,7 +21,7 @@ export class MqttProvider {
   client: mqtt.MqttClient;
   t: string;
   h: string;
-  constructor(private sms: SmsProvider, private logSvc: FirebaseProvider) {
+  constructor(private txtMsg: SmsProvider, private logSvc: FirebaseProvider) {
 
   }
 
@@ -35,14 +36,13 @@ export class MqttProvider {
   }
 
   init() {
-    const subject = new Subject<boolean>();
-    const reedSwitch$ = subject.asObservable();
-    reedSwitch$
+    const subjec$ = new Subject<boolean>();
+    // const reedSwitch$ = subject.asObservable(); 
+    subjec$
       .throttleTime(3000)
-      // .distinctUntilChanged()
-      .subscribe(res => {
-        this.sms.sendTextTextMsg(0922719061, 'Intruder!');
-      })
+      .subscribe(
+      (e) => this.txtMsg.sendTextTextMsg('0922719061', 'Intruder!')
+      );
 
     console.log('connecting to mqtt broker...');
     this.client = this.connect2Broker();
@@ -53,14 +53,17 @@ export class MqttProvider {
 
     this.client.on('message', (topic, message) => {
       let log = new DhtLog();
+      let reedSwLog = new ReedSwLog();
+
       // message is Buffer     
       console.log(`Msg: ${message}, Topic: ${topic}`);
 
       switch (topic) {
         // door opened
         case '/clsa/door1':
-          subject.next(true);
-          // this.logSvc.addReedSwitchLog(log);
+          subjec$.next(true);
+          reedSwLog.doorNumber = message.toString();
+          // this.logSvc.addReedSwLog(reedSwLog);
           break;
         case '/clsa27f/t':
           this.t = message.toString();

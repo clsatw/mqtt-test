@@ -7,6 +7,7 @@ import * as HighCharts from 'highcharts';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { DhtLog } from '../../app/shared/dhtlog.model';
+// import { ReversePipe} from '../../app/shared/pipe-reverse';
 
 /**
  * Generated class for the Dth11ListComponent component.
@@ -16,7 +17,7 @@ import { DhtLog } from '../../app/shared/dhtlog.model';
  */
 @Component({
   selector: 'dht11-list',
-  templateUrl: 'dht11-list.html'
+  templateUrl: 'dht11-list.html',  
 })
 export class Dht11ListComponent {
   dhtLogs$: Observable<DhtLog[]>;

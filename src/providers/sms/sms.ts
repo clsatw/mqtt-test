@@ -13,13 +13,13 @@ import 'rxjs/add/operator/map';
 export class SmsProvider {
   // phoneNumber: number;
   // textMsg: string = 'door #1 got opened.'
-  constructor(private sms: SMS, private toast: ToastController ) {
+  constructor(private smsVar: SMS, private toast: ToastController ) {
     console.log('Hello SmsProvider Provider');
   }
 
-  async sendTextTextMsg(phoneNumber: number, txtMsg: string) {
+  async sendTextTextMsg(phoneNumber: string, txtMsg: string) {
     try {
-      await this.sms.send(String(phoneNumber), txtMsg);
+      await this.smsVar.send(phoneNumber, txtMsg);
       const toast = this.toast.create({
         message: 'Text was sent!',
         duration: 3000

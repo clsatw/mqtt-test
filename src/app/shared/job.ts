@@ -10,7 +10,7 @@ class ReedSwitch extends EventEmitter {
         })
     }
     process() {
-        this.sms.sendTextTextMsg(0922719061, 'Intruder!');        
+        this.sms.sendTextTextMsg('0922719061', 'Intruder!');        
         this.emit('done', { openedOn: new Date() })
     }
 }

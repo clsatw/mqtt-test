@@ -19,8 +19,9 @@ import { DeviceMotion } from '@ionic-native/device-motion';
 import { Gyroscope } from '@ionic-native/gyroscope';
 import { MqttProvider } from '../providers/mqtt/mqtt';
 import { FirebaseProvider } from '../providers/firebase/firebase';
-import { RestProvider } from '../providers/rest/rest';
+// import { RestProvider } from '../providers/rest/rest';
 import { SmsProvider } from '../providers/sms/sms';
+import { SMS } from '@ionic-native/sms';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SmsProvider } from '../providers/sms/sms';
     DeviceMotion,
     MqttProvider,
     FirebaseProvider,
-    RestProvider,
+    // RestProvider,
+    SMS,
     SmsProvider
 
   ]

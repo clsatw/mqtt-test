@@ -7,7 +7,8 @@ import * as HighCharts from 'highcharts';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { DhtLog } from '../../app/shared/dhtlog.model';
-import { ReversePipe} from '../../app/shared/pipe-reverse';
+// import it from components.module.ts is enough
+// import { ReversePipe} from '../../app/shared/pipe-reverse';
 
 /**
  * Generated class for the Dth11ListComponent component.

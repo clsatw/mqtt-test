@@ -7,7 +7,6 @@ import { Dht11ListComponent } from './dht11-list/dht11-list';
 import { ReedSwComponent } from './reedsw/reedsw';
 import { ReversePipe } from '../app/shared/pipe-reverse';
 
-
 // declare components and export them.
 @NgModule({
 	imports: [
@@ -26,7 +25,7 @@ import { ReversePipe } from '../app/shared/pipe-reverse';
 		LogListComponent,
 		Dht11ListComponent,
 		ReedSwComponent,
-		// ReversePipe
+		ReversePipe
 	]
 })
 export class ComponentsModule { }

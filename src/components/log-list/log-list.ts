@@ -4,6 +4,7 @@ import { AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { Log } from '../../app/shared/log.model';
+
 /**
  * Generated class for the LogListComponent component.
  *

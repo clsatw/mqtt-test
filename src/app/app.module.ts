@@ -12,9 +12,8 @@ import { CONFIG } from "./firebase.details";
 
 import { MyApp } from './app.component';
 
-// lazy loading so don't import pages or components
-// import { HomePage } from '../pages/home/home';
-// import { LogPage } from '../pages/log/log';
+// lazy loading so we don't need to import any pages or components
+
 import { DeviceMotion } from '@ionic-native/device-motion';
 import { Gyroscope } from '@ionic-native/gyroscope';
 import { MqttProvider } from '../providers/mqtt/mqtt';

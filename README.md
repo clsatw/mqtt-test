@@ -1,3 +1,4 @@
+
 This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
 
 ## How to use this template
@@ -40,4 +41,8 @@ npm i -S @types/firebase
 $ ionic cordova plugin add cordova-sms-plugin
 $ npm install --save @ionic-native/sms
 
+
+=======
+# mqtt-test
+ionic v3
 

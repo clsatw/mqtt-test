@@ -5,7 +5,8 @@ import { IonicModule } from 'ionic-angular';
 import { LogListComponent } from './log-list/log-list';
 import { Dht11ListComponent } from './dht11-list/dht11-list';
 import { ReedSwComponent } from './reedsw/reedsw';
-// import { ReversePipe } from '../app/shared/pipe-reverse';
+import { ReversePipe } from '../app/shared/pipe-reverse';
+
 
 // declare components and export them.
 @NgModule({
@@ -17,8 +18,8 @@ import { ReedSwComponent } from './reedsw/reedsw';
 	declarations: [
 		LogListComponent,
 		Dht11ListComponent,
-		ReedSwComponent
-		// ReversePipe
+		ReedSwComponent,
+		ReversePipe
 	],
 	// export it so the logListComponent will be avilable for other module that import it
 	exports: [

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -22,6 +23,7 @@ import { FirebaseProvider } from '../providers/firebase/firebase';
 import { SmsProvider } from '../providers/sms/sms';
 import { SMS } from '@ionic-native/sms';
 
+// The most important @NgModuledecorator annotates the top-level AppModule class.
 @NgModule({
   declarations: [
     MyApp,
@@ -29,6 +31,7 @@ import { SMS } from '@ionic-native/sms';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     // ChartModule,
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,

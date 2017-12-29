@@ -46,3 +46,5 @@ $ npm install --save @ionic-native/sms
 # mqtt-test
 ionic v3
 
+FormsModule is required to import for two-way binding
+

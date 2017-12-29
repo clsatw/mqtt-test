@@ -22,7 +22,6 @@ export class MqttProvider {
   t: string;
   h: string;
   constructor(private txtMsg: SmsProvider, private logSvc: FirebaseProvider) {
-
   }
 
   connect2Broker(): mqtt.Client {
@@ -59,6 +58,9 @@ export class MqttProvider {
       console.log(`Msg: ${message}, Topic: ${topic}`);
 
       switch (topic) {
+        case '/clsa/heartbeat':
+        
+          break;
         // door opened
         case '/clsa/door1':
           subjec$.next(true);

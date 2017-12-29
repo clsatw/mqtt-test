@@ -127,6 +127,10 @@
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/@ionic-native/gyroscope/-/gyroscope-4.5.0.tgz#da62a3cd3f0c06b9524b89f079216f76310e6ea7"
 
+"@ionic-native/sms@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@ionic-native/sms/-/sms-4.5.2.tgz#9092055f04e7c61f0b506e0071143aad5feaa4fe"
+
 "@ionic-native/splash-screen@3.12.1":
   version "3.12.1"
   resolved "https://registry.yarnpkg.com/@ionic-native/splash-screen/-/splash-screen-3.12.1.tgz#1c2e468e225d5b90cad7b48fc05505d4c761ace6"
@@ -972,6 +976,10 @@ cordova-plugin-whitelist@^1.3.1:
 cordova-registry-mapper@^1.1.8:
   version "1.1.15"
   resolved "https://registry.yarnpkg.com/cordova-registry-mapper/-/cordova-registry-mapper-1.1.15.tgz#e244b9185b8175473bff6079324905115f83dc7c"
+
+cordova-sms-plugin@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/cordova-sms-plugin/-/cordova-sms-plugin-0.1.11.tgz#2dab7a432c3ee8bbd7c4adc82d405d0e343132df"
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -1840,7 +1848,7 @@ help-me@^1.0.1:
     through2 "^2.0.1"
     xtend "^4.0.0"
 
-highcharts@^6.0.3:
+highcharts@6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-6.0.3.tgz#51348a0c97d8bdc87cb3b273460e3751db4a51cd"
 

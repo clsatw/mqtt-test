@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AngularFireList } from 'angularfire2/database';
 // import { Chart } from 'angular-highcharts';
 import * as HighCharts from 'highcharts';
@@ -21,6 +21,8 @@ import { DhtLog } from '../../app/shared/dhtlog.model';
   templateUrl: 'dht11-list.html',  
 })
 export class Dht11ListComponent {
+  // @Input() dht: DhtLog;
+
   dhtLogs$: Observable<DhtLog[]>;
   dhtLogs: any;
   dhtLogList: AngularFireList<DhtLog>;

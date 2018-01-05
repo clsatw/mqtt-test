@@ -21,6 +21,7 @@ import { Log } from '../../app/shared/log.model';
   templateUrl: 'log.html',
 })
 export class LogPage {
+  log = 'dht';
   // arrData: Log[];
   text: string;
   constructor() {

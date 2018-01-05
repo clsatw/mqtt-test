@@ -20,8 +20,8 @@
   <button id='tvOn' ion-button large color='danger' (click)="ctrlGpio('1')">ON</button>
   <button id='tvOff' ion-button large color='secondary' (click)="ctrlGpio('0')">Off</button>
     -->
-    <button id='btn0' ion-button large color='danger'>ON</button>
-    <button id='btn1' ion-button large color='secondary'>Off</button>
+    <button id='btn0' ion-button large color='danger' [class.selected]="msg==='0'">ON</button>
+    <button id='btn1' ion-button large color='secondary' [class.selected]="msg==='1'">Off</button>
   </ion-item-group>
 
 </ion-content>

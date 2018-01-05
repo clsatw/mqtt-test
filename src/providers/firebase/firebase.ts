@@ -37,8 +37,7 @@ export class FirebaseProvider {
     return log$;
   }
 
-  addLog(log: Log) {
-    console.log('add a log', log.timeStamp);
+  addLog(log: Log) {  
     this.logList.push({
       topic: log.topic,
       message: log.message,

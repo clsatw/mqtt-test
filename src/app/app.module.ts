@@ -31,7 +31,7 @@ import { SMS } from '@ionic-native/sms';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    // FormsModule,
     // ChartModule,
     IonicModule.forRoot(MyApp),
     AngularFireDatabaseModule,

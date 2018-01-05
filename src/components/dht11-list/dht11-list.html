@@ -6,7 +6,13 @@
   </ion-item>
 </ion-list>
 <div [chart]='chart'></div>
+
+<ion-card>
+  <ion-card-header>dht</ion-card-header>
+  <ion-card-content>`{{dht.t}} Celsius,  {{dht.h}%`}</ion-card-content>
+</ion-card>
 -->
+
 <button ion-button large color='primary' (click)="displayChart()">display cahrt</button>
 
 <div id='container' style='display:block;'></div>

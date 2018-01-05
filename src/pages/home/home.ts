@@ -39,10 +39,10 @@ export class HomePage {
   ionViewDidLoad() {
     console.log('did loaded'); 
     this.mqtt.init();
-    this.mqtt.sub('/clsa/heartbeat');
-    this.mqtt.sub('/clsa/door1');
-    this.mqtt.sub('/clsa27f/t');
-    this.mqtt.sub('/clsa27f/h');
+    // this.mqtt.sub('/clsa/heartbeat');
+    // this.mqtt.sub('/clsa/door1');
+    // this.mqtt.sub('/clsa27f/t');
+    // this.mqtt.sub('/clsa27f/h');
     /*
     setInterval(() => {
       // client.publish('clsa/27f', Math.floor((Math.random() * 10) + 1).toString());

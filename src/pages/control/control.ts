@@ -37,7 +37,7 @@ export class ControlPage {
   options: GyroscopeOptions = {
     frequency: 1000
   };
-
+  aio_username = 'giraftw2002';
   constructor(private mqtt: MqttProvider, private logSvc: FirebaseProvider,
     public navCtrl: NavController, public navParams: NavParams,
     private platform: Platform, private gyroscope: Gyroscope,
@@ -58,20 +58,27 @@ export class ControlPage {
       .distinctUntilChanged()
       .do(e=>console.log(e))
       .subscribe(e => {
-        this.ctrlGpio(e); 
+        this.msg = e; // for selected btn class
+        this.ctrlGpio(e);         
       })
   }
 
+  /*
   ionViewDidLoad() {   
 
     if (this.mqtt.client.connected) {
-      console.log('MQTT Connected');
-      this.mqtt.sub('clsa/27f/x');
-      this.mqtt.sub('clsa/27f/y');
-      this.mqtt.sub('clsa/27f/z');
-      this.mqtt.sub('clsa/27f/IT');
+      console.log('ctrl page: MQTT Connected');
+      // this.mqtt.sub(`${this.aio_username}/f/CLSA/#`);
+      // this.mqtt.sub(`${this.aio_username}/f/CLSA/27f/y`);
+      // this.mqtt.sub(`${this.aio_username}/f/CLSA/27f/z`);
+      // this.mqtt.sub('giraftw2002/f/CLSA/27f/IT');
+      this.mqtt.sub('giraftw2002/errors');
+      this.mqtt.sub('giraftw2002/f/CLSA/#');
+      this.mqtt.sub('giraftw2002/throttle');
     }
-    /*
+    
+
+    
     this.mqtt.client.on('message', (topic, message) => {
       // message is Buffer
       console.log(`Msg: ${message}, Topic: ${topic}`);
@@ -81,19 +88,19 @@ export class ControlPage {
 
       // this.topic = topic;
       switch (topic) {      
-        case 'clsa/27f/x':
+        case 'CLSA/27f/x':
           this.mqttMsg.x = log.message;
           break;
-        case 'clsa/27f/y':
+        case 'CLSA/27f/y':
           this.mqttMsg.y = log.message;
           break;
-        case 'clsa/27f/z':
+        case 'CLSA/27f/z':
           this.mqttMsg.z = log.message;
           break;
       }
       // client.end()
     });
-    */
+    
 
     if (this.platform.is('cordova')) {
       this.gyroscope.getCurrent(this.options)
@@ -108,16 +115,16 @@ export class ControlPage {
       this.gyroscope.watch()
         .subscribe((orientation: GyroscopeOrientation) => {
           console.log(orientation.x, orientation.y, orientation.z, orientation.timestamp);
-          this.mqtt.pub('clsa/27f/x', orientation.x.toString());
-          this.mqtt.pub('clsa/27f/y', orientation.y.toString());
-          this.mqtt.pub('/clsa/27f/z', orientation.z.toString());
+          this.mqtt.pub(`${this.aio_username}/f/CLSA/27f/x`, orientation.x.toString());
+          this.mqtt.pub(`${this.aio_username}/f/CLSA/27f/y`, orientation.y.toString());
+          this.mqtt.pub(`${this.aio_username}/f/CLSA/27f/z`, orientation.z.toString());
         });
 
-      /* Get the current acceleration along the x, y, and z axes.    
-      this.mqtt.subscription = this.deviceMotion.watchAcceleration().subscribe((acceleration: DeviceMotionAccelerationData) => {
-        console.log(acceleration);
-      });
-      */
+      // Get the current acceleration along the x, y, and z axes.    
+      // this.mqtt.subscription = this.deviceMotion.watchAcceleration().subscribe((acceleration: DeviceMotionAccelerationData) => {
+      //  console.log(acceleration);
+      // });
+      
     } else {
       console.log('not on a real device');
       this.mqttMsg.x = 'not on a real device';
@@ -125,21 +132,25 @@ export class ControlPage {
       this.mqttMsg.z = 'not on a real device';
     }
   }
+  */
 
+/*
   ionViewDideave() {
-    this.mqtt.unsub('clsa/27f/x');
-    this.mqtt.unsub('clsa/27f/y');
-    this.mqtt.unsub('clsa/27f/z');
-    this.mqtt.unsub('clsa/27f/IT');
+    this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/x`);
+    this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/y`);
+    this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/z`);
+    this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/IT`);
   }
+  */
+
   // may be it should be named by <device>@<location>, eg., tv@livingroom
   // msg: '1' or '0'
   ctrlGpio(msg: string) {
     let log = new Log();
-    console.log('timestamp', log.timeStamp);
+    // console.log('timestamp', log.timeStamp);
 
-    this.mqtt.client.publish('clsa/27f', msg);
-    log.topic = 'clsa/27f';
+    this.mqtt.client.publish("giraftw2002/f/tv", msg);
+    log.topic = `${this.aio_username}/f/CLSA/27f`;
     log.message = msg;
     this.logSvc.addLog(log);
   }

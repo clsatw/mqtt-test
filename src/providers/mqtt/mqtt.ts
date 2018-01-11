@@ -70,22 +70,20 @@ export class MqttProvider {
       let reedSwLog = new ReedSwLog();
 
       // message is Buffer     
-      console.log(`Msg: ${message}, Topic: ${topic}`);
+      // console.log(`Msg: ${message}, Topic: ${topic}`);
 
-      switch (topic) {
-        case '`${this.aio_username}/f/CLSA/27f/IT`':
-          
-          break;
+      switch (topic) {       
         // door opened
-        case '`${this.aio_username}/f/CLSA/door1`':
+        case "giraftw2002/f/CLSA/door1":
           subjec$.next(true);
           reedSwLog.doorNumber = message.toString();
           // this.logSvc.addReedSwLog(reedSwLog);
           break;
-        case '`${this.aio_username}/f/CLSA27f/t`':
+        case "giraftw2002/f/t":
+          console.log(`GOT T: ${message}`);
           this.t = message.toString();
           break;
-        case '`${this.aio_username}/f/CLSA27f/h`':
+        case "giraftw2002/f/h":
           this.h = message.toString();
           log.h = this.h;
           log.t = this.t;
@@ -104,7 +102,7 @@ export class MqttProvider {
     this.client.subscribe(topic);
   };
 
-  pub(topic: string, message: string) {
+  pub(topic: string, message: string|Buffer) {
     this.client.publish(topic, message);
   };
 

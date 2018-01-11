@@ -17,6 +17,8 @@ import { MyApp } from './app.component';
 
 import { DeviceMotion } from '@ionic-native/device-motion';
 import { Gyroscope } from '@ionic-native/gyroscope';
+// import { ColorPickerModule } from 'ngx-color-picker';
+
 import { MqttProvider } from '../providers/mqtt/mqtt';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 // import { RestProvider } from '../providers/rest/rest';

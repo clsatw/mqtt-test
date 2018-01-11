@@ -37,29 +37,29 @@ export class ControlPage {
   options: GyroscopeOptions = {
     frequency: 1000
   };
-  aio_username = 'giraftw2002';
+ 
   constructor(private mqtt: MqttProvider, private logSvc: FirebaseProvider,
     public navCtrl: NavController, public navParams: NavParams,
     private platform: Platform, private gyroscope: Gyroscope,
     private deviceMotion: DeviceMotion) {
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     console.log('oninit');
     console.log('ionViewDidLoad ControlPage');
     let btn = document.querySelector('#btn0');
     const btnTvOn$ = Observable.fromEvent(btn, 'click').mapTo('1');
     btn = document.querySelector('#btn1');
     const btnTvOff$ = Observable.fromEvent(btn, 'click').mapTo('0');
-    
+
     // const btnTvOff$ = Observable.fromEvent(this.btnCtrls[1].nativeElement, 'click').mapTo('0');
-    Observable.merge(btnTvOn$, btnTvOff$)    
+    Observable.merge(btnTvOn$, btnTvOff$)
       .throttleTime(1000)
       .distinctUntilChanged()
-      .do(e=>console.log(e))
+      .do(e => console.log(e))
       .subscribe(e => {
         this.msg = e; // for selected btn class
-        this.ctrlGpio(e);         
+        this.ctrlGpio(e);
       })
   }
 
@@ -134,23 +134,28 @@ export class ControlPage {
   }
   */
 
-/*
-  ionViewDideave() {
-    this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/x`);
-    this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/y`);
-    this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/z`);
-    this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/IT`);
-  }
-  */
+  /*
+    ionViewDideave() {
+      this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/x`);
+      this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/y`);
+      this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/z`);
+      this.mqtt.unsub(`${this.aio_username}/f/CLSA/27f/IT`);
+    }
+    */
 
   // may be it should be named by <device>@<location>, eg., tv@livingroom
   // msg: '1' or '0'
   ctrlGpio(msg: string) {
     let log = new Log();
     // console.log('timestamp', log.timeStamp);
-
-    this.mqtt.client.publish("giraftw2002/f/tv", msg);
-    log.topic = `${this.aio_username}/f/CLSA/27f`;
+    // have to create feed on https://io.adafruit.com/giraftw2002/feeds before publishing coz
+    // adafruit is not allowed dynamic publish.
+    log.topic = `${this.mqtt.aio_username}/f/tv`;
+    try {
+      this.mqtt.pub(log.topic, msg);
+    } catch (e) {
+      throw e;
+    }
     log.message = msg;
     this.logSvc.addLog(log);
   }

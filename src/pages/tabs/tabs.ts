@@ -19,6 +19,7 @@ export class TabsPage {
   tab3Root: any;
   tab4Root: any;
   tab5Root: any;
+  tab6Root: any;
   // tab6Root: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -28,6 +29,7 @@ export class TabsPage {
     this.tab3Root = 'LogPage';
     this.tab4Root = 'AboutPage';
     this.tab5Root = 'ContactPage';
+    this.tab6Root = 'ColorPickerPage';
     console.log(this.navCtrl.id);
   }
 

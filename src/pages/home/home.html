@@ -9,15 +9,20 @@
 <ion-content padding>
   Home page
   <ion-card>
-      <ion-card-header>
-        Temperature/Humidity
-      </ion-card-header>
-      <ion-card-content>
-        <p>will put more data here</p>
-        <!--
+    <ion-card-header>
+      Temperature/Humidity
+    </ion-card-header>
+    <ion-card-content>
+      <p>will put more data here</p>
+      <video id='video' width='320' height='240' autoplay>
+        <source src='http://ubuy.asuscomm.com:9090/video.cgi' type="video/mjpg"> 
+      Your browser does not support the video tag.
+      </video>
+      <canvas id='canvas' width='320' height='240'></canvas>
+      <!--
           <h2>Temperature: {{}} Celsisus</h2>
           <h2>Humidity: {{}}%</h2>
         -->
-      </ion-card-content>
-    </ion-card>  
+    </ion-card-content>
+  </ion-card>
 </ion-content>

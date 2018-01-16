@@ -37,7 +37,14 @@ export class HomePage {
   */
 
   ionViewDidLoad() {
-    console.log('did loaded'); 
+    console.log('did loaded');
+    let video = document.getElementById('video');
+    let myCanvas = <HTMLCanvasElement> document.getElementById('canvas');
+    let ctx = myCanvas.getContext('2d');
+    // navigator.get = navigator.getUserMedia
+    // ctx.fillStyle = "rgb(200,0,0)";
+    // ctx.fillRect (10, 10, 55, 50);
+
     this.mqtt.init();
     // this.mqtt.sub('/clsa/heartbeat');
     // this.mqtt.sub('/clsa/door1');

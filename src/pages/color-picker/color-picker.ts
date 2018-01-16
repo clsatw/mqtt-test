@@ -44,10 +44,10 @@ export class ColorPickerPage {
   setColor(ev: any) {
     this.color = ev;
     // this.rgb = this.parseColor(this.color);
-    console.log(this.rgb);
+    console.log(this.color.slice(1,7));
     try {
       // need to parse string to int of array in arduion 
-      this.mqtt.pub(`${this.mqtt.aio_username}/f/led`, this.color);
+      this.mqtt.pub(`${this.mqtt.aio_username}/f/led`, this.color.slice(1,7));
     } catch (e) {
       throw e;
     }

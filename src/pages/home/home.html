@@ -14,11 +14,9 @@
     </ion-card-header>
     <ion-card-content>
       <p>will put more data here</p>
-      <video id='video' width='320' height='240' autoplay>
-        <source src='http://ubuy.asuscomm.com:9090/video.cgi' type="video/mjpg"> 
-      Your browser does not support the video tag.
-      </video>
-      <canvas id='canvas' width='320' height='240'></canvas>
+      <img id="video" src='http://ubuy.asuscomm.com:9090/MJPEG.CGI?.mjpeg' preload autoplay width='640' height='480'>
+      <!-- <image id="video" src='http://192.168.1.105/image.jpg' width='320' height='240'/> -->
+      <canvas crossOrigin="Anonymous" id="canvas" width="640" height="480"></canvas>
       <!--
           <h2>Temperature: {{}} Celsisus</h2>
           <h2>Humidity: {{}}%</h2>

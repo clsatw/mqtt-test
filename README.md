@@ -48,3 +48,7 @@ ionic v3
 
 FormsModule is required to import for two-way binding
 The Angular class binding makes it easy to add and remove a CSS class conditionally. Just add [class.some-css-class]="some-condition" to the element you want to style.
+
+build:
+    ionic cordova build --release android
+    

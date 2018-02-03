@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFireList } from 'angularfire2/database';
 // import { Chart } from 'angular-highcharts';
 import * as HighCharts from 'highcharts';
@@ -7,6 +7,7 @@ import * as HighCharts from 'highcharts';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { DhtLog } from '../../app/shared/dhtlog.model';
+
 // import it from components.module.ts is enough
 // import { ReversePipe} from '../../app/shared/pipe-reverse';
 
@@ -18,19 +19,28 @@ import { DhtLog } from '../../app/shared/dhtlog.model';
  */
 @Component({
   selector: 'dht11-list',
-  templateUrl: 'dht11-list.html',  
+  template: '<lines [values]="this.dhtLogs$"></lines>'
 })
 export class Dht11ListComponent {
   // @Input() dht: DhtLog;
+  // dataset: number[] = [4, 8, 15, 16, 23, 42];
+  /*
+  dataset: [ [ 5,     20 ], [ 480,   90 ], [ 250,   50 ], [ 100,   33 ], [ 330,   95 ], [ 410,   12 ],
+    [ 475,   44 ],
+    [ 25,    67 ],
+    [ 85,    21 ],
+    [ 220,   88 ]
+];
+*/
 
   dhtLogs$: Observable<DhtLog[]>;
-  dhtLogs: any;
+  // dhtLogs: DhtLog[];
   dhtLogList: AngularFireList<DhtLog>;
   // chart: Chart;  
   // overide options type with <any> 
   logsH: Array<number>;
   logsT: Array<number>;
-  logsTimeStamp: Array<Date>;
+  logsTimeStamp: Array<string>;
   /*
   chart = new Chart({
     chart: {
@@ -60,9 +70,18 @@ export class Dht11ListComponent {
   });
   */
   constructor(private dhtLogSvc: FirebaseProvider) {
-    console.log('ionViewDidLoad dht11-Log component');
+    console.log('dht11-list component'); 
+    this.dhtLogs$ = this.dhtLogSvc.getDhtData()
+    // console.dir(this.logsH);
 
-    this.dhtLogSvc.getDhtData()
+    // this.chart.addPoint()
+  }
+
+/*
+  ngAfterViewInit() {
+    console.log('dht11-list view init');
+    this.dhtLogs$ = this.dhtLogSvc.getDhtData()
+ 
       // .do(logs=>console.log(logs))           
       .subscribe(logs => {
         this.dhtLogs = logs;
@@ -70,13 +89,13 @@ export class Dht11ListComponent {
         this.logsT = logs.map(log => Number(log.t));
         this.logsTimeStamp = logs.map(log => log.timeStamp);
       })
-    // console.dir(this.logsH);
-
-    // this.chart.addPoint()
+    
   }
+*/
+
   displayChart() {
     HighCharts.setOptions({ global: { useUTC: false } });
-    
+
     HighCharts.chart('container', {
       chart: {
         type: 'spline',
@@ -92,7 +111,7 @@ export class Dht11ListComponent {
           }
         },
         zoomType: 'x'
-      },     
+      },
       title: {
         text: 'Temperature/Humidity',
         style: {

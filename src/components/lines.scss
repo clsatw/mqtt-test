@@ -1,0 +1,39 @@
+lines {
+/* Note that when we use CSS rules to style SVG elements, only SVG attribute names
+** —not regular CSS properties—should be used. This is confusing, because many properties share the same names
+** in both CSS and SVG, but some do not.   
+*/
+.line {
+  fill: none;
+  stroke: #ffab00;
+  stroke-width: 3;
+}
+
+svg div {    
+    font: 10px sans-serif;
+    background-color: rgb(5, 23, 218);
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    fill: white;  // for svg
+  }
+
+#dashboard {
+    width: 830px;    
+    border: 1px solid black;
+  }
+
+.axis path,
+.axis line {
+    stroke: teal;    
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: Optima, Futura, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    fill: teal;
+}
+  
+}

@@ -20,8 +20,8 @@ import { ReedSwLog } from '../../app/shared/reedsw.model';
 @Injectable()
 export class MqttProvider {
   client: mqtt.MqttClient;
-  t: string;
-  h: string;
+  t: number;
+  h: number;
   aio_username = 'giraftw2002';
   constructor(private txtMsg: SmsProvider, private logSvc: FirebaseProvider) {
   }
@@ -81,10 +81,10 @@ export class MqttProvider {
           break;
         case "giraftw2002/f/t":
           console.log(`GOT T: ${message}`);
-          this.t = message.toString();
+          this.t = Number(message);
           break;
         case "giraftw2002/f/h":
-          this.h = message.toString();
+          this.h = Number(message);
           log.h = this.h;
           log.t = this.t;
           if (log.t !== undefined && log.h !== undefined) {

@@ -41,7 +41,8 @@ export class FirebaseProvider {
     this.logList.push({
       topic: log.topic,
       message: log.message,
-      timeStamp: new Date().toLocaleString(),      
+      timeStamp: new Date().toDateString
+      // timeStamp: new Date().toLocaleString(),      
     });
   }
 
@@ -71,6 +72,7 @@ export class FirebaseProvider {
     this.dhtLogList.push({
       h: log.h,
       t: log.t,
+      // timeStamp: Date()
       timeStamp: new Date().toLocaleString(),     
     });
   }

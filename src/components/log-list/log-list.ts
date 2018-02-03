@@ -26,7 +26,8 @@ export class LogListComponent {
   }
 
   // won't fire viewDidLoad for componment.
-  ionViewDidLoad() {     
+  ionViewDidLoad() {  
+      
   }
 
   delete(i){

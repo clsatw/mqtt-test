@@ -1,8 +1,9 @@
-page-home {
-    video, canvas{
-        margin-left: 120px;
-        margin-top: 40px;
-        position: absolute;
+page-home {    
+    #video, #canvas{
+        display: block;
+        margin-left: auto;
+        margin-top: auto;
+        // position: absolute;
     }
     .rect {
         border: 2px solid #a64ceb;
@@ -10,4 +11,5 @@ page-home {
         position: absolute;
         top: -1000px;
       }
+     
 }

@@ -14,10 +14,10 @@ export class LinesChart {
         this.padding = padding;
     }
     render(values: Array<any>) {
-        let parseTime = d3.timeParse('%m/%d/%y');
+        let parseTime = d3.timeParse('%c');
         values.forEach((d) => {
-            console.log('bef: ', typeof (d['timeStamp']));
-            d['timeStamp'] = parseTime('02/20/17');
+            console.log(d['timeStamp']);
+            d['timeStamp'] = parseTime(d['timeStamp']);
             // d['timeStamp'] = d3.timeParse('2018-02-03T00:00:00Z');
             d['h'] = +d['h'];
             d['t'] = +d['t'];
@@ -51,7 +51,7 @@ export class LinesChart {
                 d3.min(values, (d) => { return d.timeStamp }),
                 d3.max(values, (d) => { return d.timeStamp })
             ])
-            .range([this.padding, this.w - this.padding])            
+            .range([this.padding, this.w - this.padding])
 
         let yAxis = d3.axisLeft(yScale)
             //.scale(yScale)
@@ -79,14 +79,15 @@ export class LinesChart {
         let line = d3.line()
             .x((d) => {
                 console.log(d['timeStamp']);
-                // return xScale(d['timeStamp']);
-                return d['timeStamp']
+                return xScale(d['timeStamp']);
+                //return d['timeStamp']
             })
             .y((d) => {
                 console.log(d['h']);
-                // return yScale(d['h']); }); 
-                return d['h'];
+                return yScale(d['h']);
             });
+        // return d['h'];
+
 
         // Create SVG element
         let svg = d3.select(this.target)

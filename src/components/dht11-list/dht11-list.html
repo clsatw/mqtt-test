@@ -12,9 +12,10 @@
   <ion-card-content>`{{dht.t}} Celsius,  {{dht.h}%`}</ion-card-content>
 </ion-card>
 -->
-
-<button ion-button large color='primary' (click)="displayChart()">display cahrt</button>
-
+<lines [dhtChart]="'h'" [values]="this.dhtLogs$"></lines>
+<br>
+<lines [dhtChart]="'t'" [values]="this.dhtLogs$"></lines>
+<br>
 <div id='container' style='display:block;'></div>
 <div>
   <table>
@@ -27,7 +28,7 @@
     </thead>
     <tbody>
       <!-- <tr *ngFor='let dhtLog of dhtLogs$ | async ; let i = index'> -->
-      <tr *ngFor='let dhtLog of dhtLogs | reverse'>
+      <tr *ngFor='let dhtLog of this.dhtLogs$ | async | reverse'>
         <td>{{dhtLog.t}}</td>
         <td>{{dhtLog.h}}</td>
         <td>{{dhtLog.timeStamp}} </td>

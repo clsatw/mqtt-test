@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireList } from 'angularfire2/database';
 // import { Chart } from 'angular-highcharts';
-import * as HighCharts from 'highcharts';
+// import * as HighCharts from 'highcharts';
 // import * as HighStock from 'highcharts/highstock';
 // import {FirebaseProvider} from '/providers/firebase/firebase.ts';
 import { Observable } from 'rxjs/Observable';
@@ -19,28 +19,18 @@ import { DhtLog } from '../../app/shared/dhtlog.model';
  */
 @Component({
   selector: 'dht11-list',
-  template: '<lines [values]="this.dhtLogs$"></lines>'
+  templateUrl: 'dht11-list.html'
 })
 export class Dht11ListComponent {
-  // @Input() dht: DhtLog;
-  // dataset: number[] = [4, 8, 15, 16, 23, 42];
-  /*
-  dataset: [ [ 5,     20 ], [ 480,   90 ], [ 250,   50 ], [ 100,   33 ], [ 330,   95 ], [ 410,   12 ],
-    [ 475,   44 ],
-    [ 25,    67 ],
-    [ 85,    21 ],
-    [ 220,   88 ]
-];
-*/
-
   dhtLogs$: Observable<DhtLog[]>;
-  // dhtLogs: DhtLog[];
+  t: 't';
+  h: 'h';
   dhtLogList: AngularFireList<DhtLog>;
-  // chart: Chart;  
-  // overide options type with <any> 
-  logsH: Array<number>;
-  logsT: Array<number>;
-  logsTimeStamp: Array<string>;
+  // chart: Chart;
+  // overide options type with <any>
+  // logsH: Array<number>;
+  // logsT: Array<number>;
+  // logsTimeStamp: Array<string>;
   /*
   chart = new Chart({
     chart: {
@@ -70,29 +60,11 @@ export class Dht11ListComponent {
   });
   */
   constructor(private dhtLogSvc: FirebaseProvider) {
-    console.log('dht11-list component'); 
+    console.log('dht11-list component');
     this.dhtLogs$ = this.dhtLogSvc.getDhtData()
-    // console.dir(this.logsH);
-
     // this.chart.addPoint()
   }
-
 /*
-  ngAfterViewInit() {
-    console.log('dht11-list view init');
-    this.dhtLogs$ = this.dhtLogSvc.getDhtData()
- 
-      // .do(logs=>console.log(logs))           
-      .subscribe(logs => {
-        this.dhtLogs = logs;
-        this.logsH = logs.map(log => Number(log.h));
-        this.logsT = logs.map(log => Number(log.t));
-        this.logsTimeStamp = logs.map(log => log.timeStamp);
-      })
-    
-  }
-*/
-
   displayChart() {
     HighCharts.setOptions({ global: { useUTC: false } });
 
@@ -102,12 +74,7 @@ export class Dht11ListComponent {
         panning: true,
         events: {
           load() {
-            /*
-            this.setTitle(null, {
-              text: 'Built chart in ' + (new Date() - start) + 'ms'
-            });
-            */
-            // this.xAxis[0].setExtremes(0, 7)
+
           }
         },
         zoomType: 'x'
@@ -135,13 +102,6 @@ export class Dht11ListComponent {
         data: this.logsH
       }]
     });
-    //charts.series[0].setData(this.logsT);
-    //charts.series[1].setData(this.logsH);
-    /*  
-    for( let log of this.logsT){     
-      console.log(log);
-      this.chart.addPoint(Number(log));
-    }
-    */
   }
+*/
 }

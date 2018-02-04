@@ -1,17 +1,17 @@
 lines {
 /* Note that when we use CSS rules to style SVG elements, only SVG attribute names
 ** —not regular CSS properties—should be used. This is confusing, because many properties share the same names
-** in both CSS and SVG, but some do not.   
+** in both CSS and SVG, but some do not.
 */
 .line {
   fill: none;
   stroke: #ffab00;
-  stroke-width: 3;
+  stroke-width: 2;
 }
 
-svg div {    
+svg div {
     font: 10px sans-serif;
-    background-color: rgb(5, 23, 218);
+    // background-color: rgb(5, 23, 218);
     text-align: right;
     padding: 3px;
     margin: 1px;
@@ -19,13 +19,13 @@ svg div {
   }
 
 #dashboard {
-    width: 830px;    
+    width: 830px;
     border: 1px solid black;
   }
 
 .axis path,
 .axis line {
-    stroke: teal;    
+    stroke: teal;
     shape-rendering: crispEdges;
 }
 
@@ -35,5 +35,5 @@ svg div {
     font-size: 14px;
     fill: teal;
 }
-  
+text {    fill: olive;}
 }

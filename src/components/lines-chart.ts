@@ -1,4 +1,3 @@
-import { DhtLog } from '../app/shared/dhtlog.model';
 import * as d3 from "d3";
 
 export class LinesChart {
@@ -13,18 +12,17 @@ export class LinesChart {
         this.w = w;
         this.padding = padding;
     }
-    render(values: Array<any>) {
+    // coz we will convert timeStamp to date fromat from string, values has to be Array<any>, instead of
+    // Array<DhtLog>
+    render(values: Array<any>, definedChart: string) {
         let parseTime = d3.timeParse('%c');
         values.forEach((d) => {
-            console.log(d['timeStamp']);
             d['timeStamp'] = parseTime(d['timeStamp']);
-            // d['timeStamp'] = d3.timeParse('2018-02-03T00:00:00Z');
-            d['h'] = +d['h'];
-            d['t'] = +d['t'];
-            console.log(d['timeStamp']);
+            // d['h'] = +d['h'];
+            // d['t'] = +d['t'];
         });
 
-        console.log('values:', values);
+        console.table(values, ['h', 't', 'timeStamp']);
         /*
                 let scale = d3.scaleLinear()
                     .domain(
@@ -39,8 +37,7 @@ export class LinesChart {
             .domain([
                 0,
                 d3.max(values, (d) => {
-                    return d['t'];
-                    //return d;
+                    return d[definedChart];
                 })
             ])
             .range([this.h - this.padding, this.padding])
@@ -54,40 +51,36 @@ export class LinesChart {
             .range([this.padding, this.w - this.padding])
 
         let yAxis = d3.axisLeft(yScale)
-            //.scale(yScale)
-            //.orient('left')
             .ticks(5);
 
         let xAxis = d3.axisBottom(xScale)
         // .ticks(5);
-        //.scale(xScale)
         // .ticks(d3.timeDays)
         // .tickFormat(d3.timeFormat('%m/%d'));
 
-        /*
-                let drawLine = d3.line(
-                    .x((d) => {
-                        return xScale(d['timeStamp']);
-                    })
-                    .y((d) => {
-                        return yScale(d['t']);
-                    })
-                )
-             
-        */
         //Define line generator
         let line = d3.line()
+            // filt out the readings of humidity < 0;
+            // .defined((d) => { return d['h'] >= 0 && d['t'] <= 35 })
             .x((d) => {
-                console.log(d['timeStamp']);
                 return xScale(d['timeStamp']);
-                //return d['timeStamp']
             })
             .y((d) => {
-                console.log(d['h']);
+                return yScale(d[definedChart]);
+            });
+
+        /*
+        let dangerline = d3.area()
+            // filt out the readings of humidity < 0;
+            .defined((d) => { return d['h'] >= 0 && d['t'] > 35 })
+            .x((d) => {
+                return xScale(d['timeStamp']);
+            })
+            .y0((d) => { return yScale.range()[0]; })
+            .y1((d) => {
                 return yScale(d['h']);
             });
-        // return d['h'];
-
+        */
 
         // Create SVG element
         let svg = d3.select(this.target)
@@ -100,8 +93,21 @@ export class LinesChart {
         svg.append("path")
             .datum(values)
             .attr("class", "line")
-            .attr("d", line);
+            .attr("d", line)
+            .filter(function (d) {
+                //Filter current selection of all paragraphs
+                return d[definedChart] < 35;
+                //Returns true only if d > 35
+            })  //New selection of filtered elements is handed off here
+            .style("stroke", "red");  //Applies only to elements in the filtered selection
 
+
+        /*
+                svg.append("path")
+                    .datum(values)
+                    .attr("class", "h")
+                    .attr("d", dangerLine)
+        */
         // Create X axis
         svg.append('g')
             .attr('class', 'aixs')  // assign 'axis' class
@@ -117,72 +123,6 @@ export class LinesChart {
             .call(yAxis);
 
 
-        //svg.append('path')
-        //    .attr('d', drawLine(values));
-
-        /* working  
-        var dataset = [ 5, 10, 15, 20, 25 ];
-            let svg = d3.select('.chart')
-                // let svg = d3.select('.chart')
-                .append('svg')
-                .attr('width', this.w)
-                .attr('height', this.h)
-    
-            let circles = svg.selectAll('circle')
-                .data(dataset)
-                .enter()
-                .append("circle")
-    
-            circles.attr("cx", function (d, i) {
-                    return (i * 50) +25;
-                })
-                .attr("cy", this.h/2) 
-                .attr("r", (d)=>{
-                    return d});
-                
-      
-        var dataset = [
-            [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
-            [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]
-        ];
-
-        //Create SVG element
-        var svg = d3.select(".chart")
-            .append("svg")
-            .attr("width", this.w)
-            .attr("height", this.h);
-
-        svg.selectAll("circle")  // <-- No longer "rect"
-            .data(dataset)
-            .enter()
-            .append("circle")     // <-- No longer "rect"
-            .attr("cx", function (d) {
-                return d[0];
-            })
-            .attr("cy", function (d) {
-                return d[1];
-            })
-            .attr("r", function (d) {
-                return Math.sqrt(300 - d[1]);
-            });
-
-        svg.selectAll("text")  // <-- Note "text", not "circle" or "rect"
-            .data(dataset)
-            .enter()
-            .append("text")     // <-- Same here!
-            .text(function (d) {
-                return d[0] + "," + d[1];
-            })
-            .attr("x", function (d) {
-                return d[0];
-            })
-            .attr("y", function (d) {
-                return d[1];
-            })
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "11px")
-            .attr("fill", "red");
-        */
     }
     destory() {
 

@@ -17,6 +17,7 @@ export class Lines implements OnChanges {
     padding: number = 30;
     // Declares values as a data-bound property
     @Input() values: Observable<DhtLog[]>;
+    @Input() dhtChart: string;
     dataSet: DhtLog[];
     // Gets a reference to the child DOM node
     @ViewChild('target') target;
@@ -28,17 +29,17 @@ export class Lines implements OnChanges {
     // Lifecycle hook that is invoked when data-bound properties change
     ngOnChanges(changes) {
         if (this.chart) {
-            this.chart.render(changes.values);
+            this.chart.render(changes.values, this.dhtChart);
         }
     }
     // Lifecycle hook for when the component's view has been fully initialized
-    ngAfterViewInit() {        
+    ngAfterViewInit() {
         console.log('line-component view init');
         // We have to wait until the view has been initialized before we can get the
         // DOM element to bind the chart to it
         this.chart = new LinesChart(this.target.nativeElement, this.w, this.h, this.padding);
-        this.values.subscribe((log)=>{ 
-            this.chart.render(log);
+        this.values.subscribe((log)=>{
+            this.chart.render(log, this.dhtChart);
         });
     }
 }

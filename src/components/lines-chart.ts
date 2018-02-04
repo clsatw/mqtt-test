@@ -14,6 +14,76 @@ export class LinesChart {
     }
     // coz we will convert timeStamp to date fromat from string, values has to be Array<any>, instead of
     // Array<DhtLog>
+    buildSVG() {
+        // Create SVG element
+        let svg = d3.select(this.target)
+            .append("svg")
+            .attr("width", this.w)
+            .attr("height", this.h)
+        // .style('background', '#4ff4f4')
+    }
+    drawYAxis() {
+        let yAxis = d3.axisLeft(this.yScale)
+            .ticks(5)
+            .tickPadding(10)
+        this.svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + this.padding + ",0)")
+            .call(yAxis)
+            .append('text')
+            .attr('class', 'label')
+            .attr('transform', 'rotate(-90)')
+            .attr('y', 6)
+            .attr('dy', '.71em')
+            .sytle('fill', 'grey')
+            .text('Following');
+    }
+    drawXAxis() {
+        let xAxis = d3.axisBottom(xScale)
+            .ticks(5)
+            .tickPadding(15)
+        this.svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(" + this.padding + ",0)")
+            .call(this.xAxis)
+            .append('text')
+            .attr('class', 'label')
+            .attr('text-anchor', 'end')
+            .sytle('fill', 'grey')
+            .text('Following');
+    }
+    populate() {
+        let yScale = d3.scaleLinear()
+            .domain([
+                0,
+                d3.max(values, (d) => {
+                    return d[definedChart];
+                })
+            ])
+            .range([this.h - this.padding, this.padding])
+            .nice();
+            let xScale = d3.scaleTime()
+            .domain([
+                d3.min(values, (d) => { return d.timeStamp }),
+                d3.max(values, (d) => { return d.timeStamp })
+            ])
+            .range([this.padding, this.w - this.padding])
+          //Create line
+          svg.append("path")
+          //.on('click', (d) => {
+          //    alert('temperture: ' + d[definedChart])
+          //})
+          .datum(values)
+          .attr("class", "line")
+          .attr("d", line)
+          .filter((d) => {
+              //Filter current selection of all paragraphs
+              return d[definedChart] < 35;
+              //Returns true only if d > 35
+          })  //New selection of filtered elements is handed off here
+          .style("stroke", "red");  //Applies only to elements in the filtered selection
+    }
+
     render(values: Array<any>, definedChart: string) {
         let parseTime = d3.timeParse('%c');
         values.forEach((d) => {
@@ -87,14 +157,17 @@ export class LinesChart {
             .append("svg")
             .attr("width", this.w)
             .attr("height", this.h)
-            .style('background', '#4ff4f4')
+        // .style('background', '#4ff4f4')
 
         //Create line
         svg.append("path")
+            //.on('click', (d) => {
+            //    alert('temperture: ' + d[definedChart])
+            //})
             .datum(values)
             .attr("class", "line")
             .attr("d", line)
-            .filter(function (d) {
+            .filter((d) => {
                 //Filter current selection of all paragraphs
                 return d[definedChart] < 35;
                 //Returns true only if d > 35

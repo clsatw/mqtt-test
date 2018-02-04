@@ -5,7 +5,7 @@ lines {
 */
 .line {
   fill: none;
-  stroke: #ffab00;
+  stroke: #5974ee;
   stroke-width: 2;
 }
 
@@ -25,7 +25,7 @@ svg div {
 
 .axis path,
 .axis line {
-    stroke: teal;
+    stroke: rgb(119, 133, 117);
     shape-rendering: crispEdges;
 }
 
@@ -35,5 +35,9 @@ svg div {
     font-size: 14px;
     fill: teal;
 }
-text {    fill: olive;}
+// text {fill: gold;}
+h3 {
+  text-align: center;
+  text-decoration-color: aquamarine;
+}
 }

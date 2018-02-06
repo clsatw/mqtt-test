@@ -1,9 +1,8 @@
-import { Component, Input, OnChanges, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ElementRef, ViewChild } from '@angular/core';
 // import { IonicPage, NavController, NavParams } from 'ionic-angular';
 // Loads the code needed to manipulate the visualization
 import { LinesChart } from './lines-chart';
 import { DhtLog } from '../app/shared/dhtlog.model';
-import * as D3 from 'd3/index';
 import { Observable } from 'rxjs/Observable';
 
 // Identifies the class as a component directive that will be associated
@@ -20,34 +19,25 @@ export class Lines implements OnChanges {
 
     dataSet: DhtLog[];
     // Gets a reference to the child DOM node
-    @ViewChild('target') target;
+    @ViewChild('target') target: ElementRef;
     // An instance of the LinesChart object
     chart: LinesChart;
     host;
-    svg;
+  
     // elementRef enables us directly access to the DOM
-    @Input()
-    values: Observable<DhtLog[]>;
-    dhtChart: string;
-    constructor(private _element: ElementRef) {
-        this.host = D3.select(this._element.nativeElement);
+    @Input() values: Observable<DhtLog[]>;
+    @Input() dhtChart: string;
+    constructor() {
+        // this.host = D3.select(this._element.nativeElement);
     }
     // Lifecycle hook that is invoked when data-bound properties change
-    ngOnChanges(changes) {
-        /*
-        this.setup();
-        this.buildSVG();
-        this.populate()
-        this.drawXAxis();
-        this.drawYAxis();
-        */
+    ngOnChanges(changes) {      
         if (this.chart) {
             this.chart.render(changes.values, this.dhtChart);
         }
     }
     // Lifecycle hook for when the component's view has been fully initialized
-    ngAfterViewInit() {
-        this.buildSVG();
+    ngAfterViewInit() {       
         console.log('line-component view init');
         // We have to wait until the view has been initialized before we can get the
         // DOM element to bind the chart to it
@@ -56,11 +46,5 @@ export class Lines implements OnChanges {
             this.chart.render(log, this.dhtChart);
         });
     }
-    buildSVG(): void {
-        this.host.html('');
-        this.svg = this.host.append('svg')
-            .attr('width', this.w)
-            .attr('height', this.h)
-            .style('background-color', 'blue');
-    }
+ 
 }

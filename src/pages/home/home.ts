@@ -38,7 +38,7 @@ export class HomePage {
 
   ionViewDidLoad() {
     console.log('did loaded');
-    let video = document.getElementById('video');
+    // let video = document.getElementById('video');
     let myCanvas = <HTMLCanvasElement> document.getElementById('canvas');
     let ctx = myCanvas.getContext('2d');
     // navigator.get = navigator.getUserMedia

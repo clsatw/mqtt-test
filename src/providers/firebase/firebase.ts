@@ -41,8 +41,8 @@ export class FirebaseProvider {
     this.logList.push({
       topic: log.topic,
       message: log.message,
-      timeStamp: new Date().toDateString
-      // timeStamp: new Date().toLocaleString(),      
+      //timeStamp: new Date().toDateString
+      timeStamp: new Date().toLocaleString(),      
     });
   }
 

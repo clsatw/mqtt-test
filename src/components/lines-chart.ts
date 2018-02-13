@@ -21,7 +21,7 @@ export class LinesChart {
     }
     // coz we will convert timeStamp to date fromat from string, values has to be Array<any>, instead of
     // Array<DhtLog>
-    setup() {        
+    setup() {
         this.margin = {
             top: 15,
             right: 50,
@@ -50,7 +50,7 @@ export class LinesChart {
             // .ticks(5)
             .tickPadding(15)
             // refer to http://www.oxxostudio.tw/articles/201412/svg-d3-11-time.html
-            .tickFormat(d3.timeFormat("%H-%e-%m-%y"))            
+            .tickFormat(d3.timeFormat("%H-%e-%m-%y"))
         /*
         ** In SVG land, a g element is a group element. Groupelements are invisible,
         ** unlike line, rect, and circle, and theyhave no visual presence themselves.
@@ -70,18 +70,18 @@ export class LinesChart {
             ** call() hands off g to the xAxis function, so our axis is generated within g.
             */
             .call(xAxis)
-        
-        .append('text')
-        .attr('class', 'label')
-        .attr('x', this.w)
-        .attr('y', 0)
-        .attr('text-anchor', 'end')
-        //.sytle('fill', 'grey')
-        .text('時間');
-        
+
+            .append('text')
+            .attr('class', 'label')
+            .attr('x', this.w)
+            .attr('y', 0)
+            .attr('text-anchor', 'end')
+            //.sytle('fill', 'grey')
+            .text('時間');
+
     }
 
-    drawYAxis() {        
+    drawYAxis() {
         let yAxis = d3.axisLeft(this.yScale)
             .ticks(5)
             .tickPadding(10)
@@ -90,14 +90,16 @@ export class LinesChart {
             .attr("transform", "translate(" + this.padding + ",0)")
             .call(yAxis)
             .append('text')
-        
-        .attr('class', 'label')
-        .attr('transform', 'rotate(-90)')
-        .attr('y', 6)
-        .attr('dy', '.71em')
-        // .sytle('fill', 'grey')
-        .text('溫度');
-        
+
+            .attr('class', 'label')
+            .attr('transform', 'rotate(-90)')
+            .attr('x', 0 - (this.h / 2))
+            .attr('y', 0)
+            // .attr('y', 0 - this.padding)
+            .attr('dy', '1em')
+            //.sytle('fill', 'red')
+            .text('溫度');
+
     }
 
     populate(values: Array<any>, definedChart) {

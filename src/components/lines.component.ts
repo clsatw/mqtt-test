@@ -41,7 +41,8 @@ export class Lines implements OnChanges {
         console.log('line-component view init');
         // We have to wait until the view has been initialized before we can get the
         // DOM element to bind the chart to it
-        this.chart = new LinesChart(this.target.nativeElement, this.w, this.h, this.padding);
+        // h = w * 0.6;
+        this.chart = new LinesChart(this.target.nativeElement, this.w);
         this.values.subscribe((log) => {
             this.chart.render(log, this.dhtChart);
         });

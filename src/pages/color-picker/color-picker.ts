@@ -19,12 +19,31 @@ import { MqttProvider } from '../../providers/mqtt/mqtt';
   templateUrl: 'color-picker.html',
 })
 export class ColorPickerPage {
-
+  showStyle: boolean = false;
+  btnColor: string;
+  btnText: string = 'Random Color';
+  timer: NodeJS.Timer;
   color: string = '#ff00cc';
   //colorPicker: any;
   rgb: Buffer = new Buffer(3);
 
   constructor(private mqtt: MqttProvider) {
+  }
+  getStyle() {
+    this.showStyle = !this.showStyle;
+    if (this.showStyle) {
+      this.btnText = 'Stop Random Color';
+      this.timer = setInterval(() => {
+        let d = (Math.floor(Math.random() * 1677215) + 1);
+        this.color = (+d).toString(16);
+        this.setColor('#'+this.color);
+      }, 6000);
+      return "Green";
+    } else {
+      this.btnText = 'Random Color';
+      clearInterval(this.timer);
+      return "Yellow";
+    }
   }
   /*
   public onChangeColor(color: string): Cmyk {
@@ -44,10 +63,10 @@ export class ColorPickerPage {
   setColor(ev: any) {
     this.color = ev;
     // this.rgb = this.parseColor(this.color);
-    console.log(this.color.slice(1,7));
+    console.log(this.color.slice(1, 7));
     try {
-      // need to parse string to int of array in arduion 
-      this.mqtt.pub(`${this.mqtt.aio_username}/f/led`, this.color.slice(1,7));
+      // need to parse string to int of array in arduion
+      this.mqtt.pub(`${this.mqtt.aio_username}/f/led`, this.color.slice(1, 7));
     } catch (e) {
       throw e;
     }

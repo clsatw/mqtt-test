@@ -16,6 +16,7 @@
   <color-picker [hexColor]="'#FF0000'" (colorChanged)="setColor($event)"></color-picker>
   <div> {{color}} </div>
   <div> {{rgb}} </div>
-  
+  <br>
+  <button ion-button large [style.]='btnColor' (click)='getStyle();'>{{btnText}}</button>
 
 </ion-content>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+
 import 'rxjs/add/operator/map';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import * as mqtt from 'mqtt';
@@ -9,6 +10,8 @@ import 'rxjs/add/operator/distinct';
 import { DhtLog } from '../../app/shared/dhtlog.model';
 import { SmsProvider } from '../sms/sms';
 import { ReedSwLog } from '../../app/shared/reedsw.model';
+// import { Observable } from 'rxjs/Observable';
+import {zip} from 'rxjs/observable/zip';
 // import { IClientOptions } from 'mqtt';
 // import { Log } from '../../app/shared/log.model';
 /*
@@ -20,8 +23,8 @@ import { ReedSwLog } from '../../app/shared/reedsw.model';
 @Injectable()
 export class MqttProvider {
   client: mqtt.MqttClient;
-  t: number;
-  h: number;
+  //t: number;
+  //h: number;
   aio_username = 'giraftw2002';
   constructor(private txtMsg: SmsProvider, private logSvc: FirebaseProvider) {
   }
@@ -44,7 +47,17 @@ export class MqttProvider {
   }
 
   init() {
+    let log = new DhtLog();
     const subjec$ = new Subject<boolean>();
+    const t$ = new Subject<number>();
+    const h$ = new Subject<number>();
+    zip(t$, h$)
+      .subscribe(([t, h])=>{
+        log.t = t;
+        log.h = h;
+        this.logSvc.addDhtLog(log);
+      });
+    
     // const reedSwitch$ = subject.asObservable(); 
     /*
     subjec$
@@ -66,7 +79,7 @@ export class MqttProvider {
     })
 
     this.client.on('message', (topic, message) => {
-      let log = new DhtLog();
+      // let log = new DhtLog();
       let reedSwLog = new ReedSwLog();
 
       // message is Buffer     
@@ -81,9 +94,12 @@ export class MqttProvider {
           break;
         case "giraftw2002/f/t":
           console.log(`GOT T: ${message}`);
-          this.t = Number(message);
+          t$.next(Number(message));
+          // this.t = Number(message);
           break;
         case "giraftw2002/f/h":
+          h$.next(Number(message));
+        /*
           this.h = Number(message);
           log.h = this.h;
           log.t = this.t;
@@ -93,6 +109,7 @@ export class MqttProvider {
             //dbCtrl.writeDhtData(th);
             // client.end()
           };
+          */
           break;
       }
     });

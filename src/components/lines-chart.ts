@@ -28,7 +28,7 @@ export class LinesChart {
             bottom: 40,
             left: 50
         }
-        this.padding = 40;
+        this.padding = 120;
         //this.w = this.target.clientWidth - this.margin.left - this.margin.right;
         //this.h = this.w * 0.6 - this.margin.bottom - this.margin.top;      
 
@@ -50,7 +50,8 @@ export class LinesChart {
             // .ticks(5)
             .tickPadding(15)
             // refer to http://www.oxxostudio.tw/articles/201412/svg-d3-11-time.html
-            .tickFormat(d3.timeFormat("%H-%e-%m-%y"))
+           // .tickFormat(d3.timeFormat("%H-%e-%m-%y"))
+           .tickFormat(d3.timeFormat("%H:%M %d-%b-%y"))
         /*
         ** In SVG land, a g element is a group element. Groupelements are invisible,
         ** unlike line, rect, and circle, and theyhave no visual presence themselves.
@@ -70,7 +71,13 @@ export class LinesChart {
             ** call() hands off g to the xAxis function, so our axis is generated within g.
             */
             .call(xAxis)
-
+            .selectAll("text")	
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", function(d) {
+                return "rotate(-65)" 
+                })
             .append('text')
             .attr('class', 'label')
             .attr('x', this.w)

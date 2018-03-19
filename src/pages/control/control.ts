@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild,  } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { Gyroscope, GyroscopeOrientation, GyroscopeOptions } from '@ionic-native/gyroscope';
@@ -7,7 +7,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/operator/distinct';
 import 'rxjs/add/operator/mapTo';
-
+import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/concatAll';
+import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/fromEvent';
 
@@ -28,6 +30,7 @@ import { MqttProvider } from '../../providers/mqtt/mqtt';
   templateUrl: 'control.html',
 })
 export class ControlPage {
+  @ViewChild('tv') tv: ElementRef;
   msg: string;
   mqttMsg = {
     x: 'n/a',
@@ -37,15 +40,14 @@ export class ControlPage {
   options: GyroscopeOptions = {
     frequency: 1000
   };
- 
-  constructor(private mqtt: MqttProvider, private logSvc: FirebaseProvider,
+
+  constructor(private el: ElementRef, private mqtt: MqttProvider, private logSvc: FirebaseProvider,
     public navCtrl: NavController, public navParams: NavParams,
     private platform: Platform, private gyroscope: Gyroscope,
     private deviceMotion: DeviceMotion) {
   }
 
-  ngOnInit() {
-    console.log('oninit');
+  ionViewDidLoad() {  
     console.log('ionViewDidLoad ControlPage');
     let btn = document.querySelector('#btn0');
     const btnTvOn$ = Observable.fromEvent(btn, 'click').mapTo('1');
@@ -61,6 +63,32 @@ export class ControlPage {
         this.msg = e; // for selected btn class
         this.ctrlGpio(e);
       })
+
+    let parent = document.getElementById('parent');
+    let target = <HTMLElement>document.getElementById('tv');
+    const mouseDown$ = Observable.fromEvent(target, 'mousedown');
+    const mouseMove$ = Observable.fromEvent<MouseEvent>(parent, 'mousemove');
+    const mouseUp$ = Observable.fromEvent(parent, 'mouseup');
+    
+    const drag$ = mouseDown$.concatMap(() => mouseMove$.takeUntil(mouseUp$));
+    drag$.subscribe(e => {
+      // console.log(this.tv.nativeElement);
+      target.style.top = e.clientY-75 + 'px';
+      // this.tv.nativeElement.style.left = e.clientX + 'px';
+      target.style.left = e.clientX-22 + 'px';
+      
+      console.log(e);
+    })
+    
+    /*
+    let drag$ = mouseDown$.map(e=>{
+      return mouseMove$.takeUntil(mouseUp$)
+    }).concatAll();
+    drag$.forEach(e=>{
+      target.style.top = e.clientY + 'px';      
+      target.style.left = e.clientX + 'px';
+    });
+    */
   }
 
   /*

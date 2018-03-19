@@ -3,4 +3,15 @@ page-control {
         background-color: #CFD8DC !important;
         color:  black;
       }
+    #parent {
+        width:200px;
+        height: 200px;
+        background-color: red;        
+    }
+    #tv {        
+        width: 150px; 
+        background:white;
+        cursor: move;
+        position: absolute;
+    }
 }

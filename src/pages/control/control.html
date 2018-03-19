@@ -4,24 +4,40 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
 
-  <ion-navbar>
-    <ion-title>
-      <ion-icon name="power"></ion-icon> Control</ion-title>
-  </ion-navbar>
-</ion-header>
 
 
 <ion-content padding>
-  <h1>TV in the living room</h1>
-  <ion-item-group>
-    <!--
-  <button id='tvOn' ion-button large color='danger' (click)="ctrlGpio('1')">ON</button>
-  <button id='tvOff' ion-button large color='secondary' (click)="ctrlGpio('0')">Off</button>
-    -->
-    <button id='btn0' ion-button large color='danger' [class.selected]="msg==='0'">ON</button>
-    <button id='btn1' ion-button large color='secondary' [class.selected]="msg==='1'">Off</button>
-  </ion-item-group>
 
+
+  <ion-header>
+    <div id='parent'>
+      <div id='tv'>
+        Drag me
+      </div>
+    </div>
+    <ion-navbar>
+      <ion-title>
+        <ion-icon name="power"></ion-icon> Control</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+  <div id='tv1'>
+    <ion-card>
+      <ion-card-header>
+        TV in the living room
+      </ion-card-header>
+
+      <ion-card-content>
+        <button ion-button large id='btn0' color='danger' [class.selected]="msg==='0'">
+          <ion-icon name='radio-button-on'></ion-icon>
+          &nbsp; ON
+        </button>
+        <button id='btn1' ion-button large color='secondary' [class.selected]="msg==='1'">
+          <ion-icon name='radio-button-off'></ion-icon>
+          &nbsp; Off
+        </button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

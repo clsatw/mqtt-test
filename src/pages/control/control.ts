@@ -92,42 +92,6 @@ export class ControlPage {
   }
 
   /*
-  ionViewDidLoad() {   
-
-    if (this.mqtt.client.connected) {
-      console.log('ctrl page: MQTT Connected');
-      // this.mqtt.sub(`${this.aio_username}/f/CLSA/#`);
-      // this.mqtt.sub(`${this.aio_username}/f/CLSA/27f/y`);
-      // this.mqtt.sub(`${this.aio_username}/f/CLSA/27f/z`);
-      // this.mqtt.sub('giraftw2002/f/CLSA/27f/IT');
-      this.mqtt.sub('giraftw2002/errors');
-      this.mqtt.sub('giraftw2002/f/CLSA/#');
-      this.mqtt.sub('giraftw2002/throttle');
-    }
-    
-
-    
-    this.mqtt.client.on('message', (topic, message) => {
-      // message is Buffer
-      console.log(`Msg: ${message}, Topic: ${topic}`);
-      let log = new Log();
-      log.message = message.toString();
-      log.topic = topic.toString();   
-
-      // this.topic = topic;
-      switch (topic) {      
-        case 'CLSA/27f/x':
-          this.mqttMsg.x = log.message;
-          break;
-        case 'CLSA/27f/y':
-          this.mqttMsg.y = log.message;
-          break;
-        case 'CLSA/27f/z':
-          this.mqttMsg.z = log.message;
-          break;
-      }
-      // client.end()
-    });
     
 
     if (this.platform.is('cordova')) {
@@ -178,6 +142,7 @@ export class ControlPage {
     // console.log('timestamp', log.timeStamp);
     // have to create feed on https://io.adafruit.com/giraftw2002/feeds before publishing coz
     // adafruit is not allowed dynamic publish.
+    /*
     log.topic = `${this.mqtt.aio_username}/f/tv`;
     try {
       this.mqtt.pub(log.topic, msg);
@@ -186,5 +151,6 @@ export class ControlPage {
     }
     log.message = msg;
     this.logSvc.addLog(log);
+    */
   }
 }

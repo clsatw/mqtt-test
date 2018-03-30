@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 // import * as mqtt from 'mqtt';
 import { MqttProvider } from '../../providers/mqtt/mqtt';
-import { MqttClient } from 'mqtt';
+// import { MqttClient } from 'mqtt';
 // import { ControlPage } from '../control/control';
 // import { Dht11Page } from '../dht11/dht11';
 // import { LogPage } from '../log/log';
@@ -17,7 +17,7 @@ import { MqttClient } from 'mqtt';
 export class HomePage {
   subscription: Subscription;
   //watch: number;
-  client: MqttClient;
+  // client: MqttClient;
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
     private mqtt: MqttProvider) {

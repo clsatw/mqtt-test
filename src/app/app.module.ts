@@ -24,6 +24,7 @@ import { FirebaseProvider } from '../providers/firebase/firebase';
 // import { RestProvider } from '../providers/rest/rest';
 import { SmsProvider } from '../providers/sms/sms';
 import { SMS } from '@ionic-native/sms';
+import { HttpModule } from '@angular/http';
 
 // The most important @NgModuledecorator annotates the top-level AppModule class.
 @NgModule({
@@ -33,6 +34,7 @@ import { SMS } from '@ionic-native/sms';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     // FormsModule,
     // ChartModule,
     IonicModule.forRoot(MyApp),
@@ -51,7 +53,7 @@ import { SMS } from '@ionic-native/sms';
     Gyroscope,
     DeviceMotion,
     MqttProvider,
-    FirebaseProvider,
+    FirebaseProvider,   
     // RestProvider,
     SMS,
     SmsProvider
